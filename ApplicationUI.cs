@@ -107,31 +107,38 @@ namespace Studentregistreringsprogram
             string? city;
             string[] StudentInfo = new string[3];
 
-            // empty strings are not allowed for firstName
+            // ändrade inlämningen i efterhand här nedan för att programmet inte ska tillåta
+            // att namn och städer skrivs i något annat än bokstäver
+            
             do {
                 Console.WriteLine("Please enter the firstname of the student;");
                 firstName = Console.ReadLine();
                 Console.Clear();
-            } while (firstName is "");
+            } while (firstName is "" || firstName.All(char.IsLetter) == false);
             StudentInfo[0] = firstName;
 
-            // empty strings are not allowed for lastName
+            
             do
             {
                 Console.WriteLine("Please enter the lastname of the student;");
                 lastName = Console.ReadLine();
                 Console.Clear();
-            } while (lastName is "");
+            } while (lastName is "" || lastName.All(char.IsLetter) == false);
 
             StudentInfo[1] = lastName;
 
-            // empty string for city is set to "unknown city"
-            Console.WriteLine("Please enter the city in which the student is located;");
-            city = Console.ReadLine();
-            if(city is "")
+           
+            do
             {
-                city = "Unknown location";
+                Console.WriteLine("Please enter the city in which the student is located;");
+                city = Console.ReadLine();
+                Console.Clear();
+            } while (city.All(char.IsLetter) == false);
+            if (city is "")
+            {
+                city = "unknown location";
             }
+            
             StudentInfo[2] = city;
             Console.Clear();
 
@@ -183,44 +190,50 @@ namespace Studentregistreringsprogram
             Console.WriteLine("2. City of the student");
             choice = int.Parse(Console.ReadLine());
             Console.Clear();
-           
-            switch (choice)
-            {
-                case 1:
-                    do {
-                        Console.WriteLine("Write the firstname of the student;");
-                        newFirstName = Console.ReadLine();
-                        Console.Clear();
-                    }while (newFirstName is "");
 
-                    do
-                    {
-                        Console.WriteLine("Write the lastname of the student;");
-                        newLastName = Console.ReadLine();
-                        Console.Clear();
-                    } while (newLastName is "");
+            // indentionen här ser konstigt ut då jag ändrade i koden efter inlämning
+            // Laddade upp hela projektet och orkade inte tracka projektet via git nu i efterhand,
+            // så det blev copy paste på den nya switchen. 
+           switch (choice)
+{
+    case 1:
+        do {
+            Console.WriteLine("Write the firstname of the student;");
+            newFirstName = Console.ReadLine();
+            Console.Clear();
+        }while (newFirstName is "" || newFirstName.All(char.IsLetter) == false);
 
-                    validData = 1;
-                    break;
+        do
+        {
+            Console.WriteLine("Write the lastname of the student;");
+            newLastName = Console.ReadLine();
+            Console.Clear();
+        } while (newLastName is "" || newLastName.All(char.IsLetter) == false);
 
-                case 2:
-                    Console.WriteLine("Write the new city of the student;");
-                    newCity = Console.ReadLine(); 
-                    if(newCity is "")
-                    {
-                        newCity = "Unknown location";
-                    }
-                    Console.Clear();
-                    validData = 1;
-                    break;
-                    
-                default:
-                    Console.WriteLine("You did not choose a valid option");
-                    PressEnterToContinue();
-                    validData = 0;
+        validData = 1;
+        break;
 
-                    break;
-            }
+    case 2:
+        do
+        {
+            Console.WriteLine("Write the new city of the student;");
+            newCity = Console.ReadLine();
+            Console.Clear();
+        } while (newCity.All(char.IsLetter) == false);
+        if (newCity is "")
+        {
+            newCity = "unknown location";
+        }
+        validData = 1;
+        break;
+        
+    default:
+        Console.WriteLine("You did not choose a valid option");
+        PressEnterToContinue();
+        validData = 0;
+
+        break;
+}
             
 
             newData[0] = validData;
